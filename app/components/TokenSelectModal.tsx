@@ -5,7 +5,7 @@ import { tokenList } from '../static/tokens';
 // import Image  from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion'
 
-type tokenType = { symbol: string; iconUrl: string; name: string; address: `0x${string}`; };
+type tokenType = { symbol: string; iconUrl: string; name: string; address: string; };
 type OnModalHideFunction = () => void;
 export default function TokenSelectModal({ onHide, show: showModal, onSelect }: { onHide: OnModalHideFunction, show: boolean, onSelect: Dispatch<SetStateAction<tokenType>>}) {
 
