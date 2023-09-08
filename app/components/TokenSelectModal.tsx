@@ -5,11 +5,9 @@ import { tokenList } from '../static/tokens';
 // import Image  from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion'
 
-type tokenType = { symbol: string; iconUrl: string; name: string; };
+type tokenType = { symbol: string; iconUrl: string; name: string; address: `0x${string}`; };
 type OnModalHideFunction = () => void;
 export default function TokenSelectModal({ onHide, show: showModal, onSelect }: { onHide: OnModalHideFunction, show: boolean, onSelect: Dispatch<SetStateAction<tokenType>>}) {
-
-  const cancelButtonRef = useRef(null)
 
   return (
     <AnimatePresence>
@@ -20,7 +18,6 @@ export default function TokenSelectModal({ onHide, show: showModal, onSelect }: 
           open={showModal} 
           as={motion.div} 
           className="relative z-10" 
-          initialFocus={cancelButtonRef} 
           onClose={onHide}
         >        
           <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -33,8 +30,8 @@ export default function TokenSelectModal({ onHide, show: showModal, onSelect }: 
                         </Dialog.Title>
                         <div className="mt-2">
                         <ul role="list" className="divide-y divide-blue-800">
-                          { tokenList.map(({ symbol, name, iconUrl })=> (
-                            <li key={symbol} className="flex justify-between gap-x-6 pl-4 py-5 hover:bg-blue-800 cursor-pointer " onClick={()=> { onSelect({ symbol, iconUrl, name}); onHide();}}>
+                          { tokenList.map(({ symbol, name, iconUrl, address })=> (
+                            <li key={symbol} className="flex justify-between gap-x-6 pl-4 py-5 hover:bg-blue-800 cursor-pointer " onClick={()=> { onSelect({ symbol, iconUrl, name, address}); onHide();}}>
                               <div className="flex min-w-0 gap-x-4">
                                 <img width="64" height="64" className="h-12 w-12 flex-none rounded-full bg-gray-50" src={iconUrl} alt={name} />
                                 <div className="min-w-0 flex-auto">
@@ -47,7 +44,6 @@ export default function TokenSelectModal({ onHide, show: showModal, onSelect }: 
                         </ul> 
                         </div>
                       </div>
-                    
                   </div>
                 </Dialog.Panel>
             </div>
