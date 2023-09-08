@@ -1,12 +1,20 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
 import TokenSelectModal from './components/token_select_modal';
+
+import colors from './styles/colors'
 
 export default function Home() {
   const [showModal, setShowModal ]= useState(false);
+  const { isConnected } = useAccount();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <div className="absolute right-10 top-10" >
+          <ConnectButton/>
+        </div>
         {
           showModal && <TokenSelectModal onClose={()=> setShowModal(false)}/>
         }
@@ -19,8 +27,8 @@ export default function Home() {
             <circle cx={512} cy={512} r={512} fill="url(#759c1415-0410-454c-8f7c-9a820de03641)" fillOpacity="0.7" />
             <defs>
               <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
-                <stop stopColor="#7775D6" />
-                <stop offset={1} stopColor="#E935C1" />
+                <stop stopColor={colors.Blue100} />
+                <stop offset={1} stopColor={colors.Blue800} />
               </radialGradient>
             </defs>
           </svg>
@@ -30,12 +38,15 @@ export default function Home() {
               Selected token:
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-              <button
-                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                onClick={() => setShowModal(true)}
-              >
-                Select Token
-              </button>
+              {
+                isConnected && 
+                <button
+                  className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  onClick={() => setShowModal(true)}
+                >
+                  Select Token
+                </button>
+              }
             </div>
           </div>
          

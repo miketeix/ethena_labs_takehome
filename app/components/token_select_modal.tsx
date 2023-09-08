@@ -1,7 +1,9 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-export default function TokenSelectModal({ onClose }) {
+type OnCloseFunction = () => void;
+export default function TokenSelectModal({ onClose }: { onClose: OnCloseFunction}) {
+
   const [open, setOpen] = useState(true)
 
   const cancelButtonRef = useRef(null)
